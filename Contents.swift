@@ -13,4 +13,7 @@ cbrApi.getFakeResource()
 cbrApi.getHostNotFound()
 cbrApi.getCurrencyExchangeListWithBadParameter()
 
-getData(urlRequest: urlRequest)
+// MARK: - Get marvel data
+
+let marvelApi = MarvelApi(client: client)
+marvelApi.getComicsOfCharacter(id: "1011424")
