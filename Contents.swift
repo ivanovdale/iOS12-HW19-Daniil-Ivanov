@@ -1,5 +1,7 @@
 import Foundation
 
+// MARK: - Data getting
+
 func getData(urlRequest: String) {
     let urlRequest = URL(string: urlRequest)
     guard let url = urlRequest else { return }
@@ -27,6 +29,8 @@ func getData(urlRequest: String) {
         }
     }.resume()
 }
+
+// MARK: - Use case
 
 let currentDate = Date.getCurrentDate()
 let urlRequest = "http://www.cbr.ru/scripts/XML_daily.asp?date_req=\(currentDate)"
