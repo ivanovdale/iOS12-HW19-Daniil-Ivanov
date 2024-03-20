@@ -6,6 +6,7 @@ public final class HTTPClient {
     public func getData(urlRequest: String, encoding: String.Encoding = .utf8) {
         let urlRequest = URL(string: urlRequest)
         guard let url = urlRequest else { return }
+        print("GET Request: \(url)\n")
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error as? URLError {
                 print("Error occured.")
