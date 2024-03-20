@@ -7,4 +7,8 @@ public extension Date {
         dateFormatter.dateFormat = "dd/MM/yyyy"
         return dateFormatter.string(from: Date())
     }
+
+    func currentTimeInMillis() -> Int64 {
+        return Int64(timeIntervalSince1970 * 1000)
+    }
 }
