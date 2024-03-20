@@ -2,6 +2,7 @@ import Foundation
 
 public final class CBRApi {
     private enum Constants {
+        static let scheme = "https"
         static let host = "www.cbr.ru"
         static let fakeHost = "www.cb.ru"
     }
@@ -21,16 +22,37 @@ public final class CBRApi {
         var urlRequest: String {
             switch self {
             case .currencyExchangeList(let dateString):
+                var components = URLComponents()
+                components.scheme = Constants.scheme
+                components.host = Constants.host
+                components.path = "/scripts/XML_daily.asp"
+                components.queryItems = buildQueryItems(dateString: dateString)
                 let queryParameters = "?date_req=\(dateString)"
-                return "https://" + Constants.host + "/scripts/XML_daily.asp" + queryParameters
+                return components.url?.absoluteString ?? ""
             case .fakeResource:
-                return "https://" + Constants.host + "/sc/XML_daily.asp"
+                var components = URLComponents()
+                components.scheme = Constants.scheme
+                components.host = Constants.host
+                components.path = "/sc/XML_daily.asp"
+                return components.url?.absoluteString ?? ""
             case .hostNotFound:
-                return "https://" + Constants.fakeHost + "/sc/XML_daily.asp"
+                var components = URLComponents()
+                components.scheme = Constants.scheme
+                components.host = Constants.fakeHost
+                components.path = "/scripts/XML_daily.asp"
+                return components.url?.absoluteString ?? ""
             case .currencyExchangeListWithBadParameter:
-                let queryParameters = "?date_req=01/01/1970"
-                return "https://" + Constants.host + "/scripts/XML_daily.asp" + queryParameters
+                var components = URLComponents()
+                components.scheme = Constants.scheme
+                components.host = Constants.host
+                components.path = "/scripts/XML_daily.asp"
+                components.queryItems = buildQueryItems(dateString: "01/01/1970")
+                return components.url?.absoluteString ?? ""
             }
+        }
+
+        private func buildQueryItems(dateString: String) -> [URLQueryItem] {
+            [URLQueryItem(name: "date_req", value: dateString)]
         }
     }
 
