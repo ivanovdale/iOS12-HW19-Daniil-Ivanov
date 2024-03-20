@@ -21,6 +21,9 @@ func getData(urlRequest: String) {
                 let dataAsString = String(data: data, encoding: .windowsCP1251)
                 guard let dataAsString = dataAsString else { return }
                 print(dataAsString)
+            } else if response.statusCode == 404 {
+                print("Page not found. Check url request string.")
+            }
         }
     }.resume()
 }
