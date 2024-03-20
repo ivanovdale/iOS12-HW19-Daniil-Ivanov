@@ -5,7 +5,6 @@ func getData(urlRequest: String) {
     guard let url = urlRequest else { return }
     URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data else { return }
-            let dataAsString = String(data: data, encoding: .utf8)
             
         if let error = error as? URLError {
             print("Error occured.")
@@ -18,6 +17,7 @@ func getData(urlRequest: String) {
             default: print("An error occurred: \(error.localizedDescription)")
             }
         } else if let response = response as? HTTPURLResponse {
+                let dataAsString = String(data: data, encoding: .windowsCP1251)
         }
     }.resume()
 }
