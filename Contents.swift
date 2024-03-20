@@ -1,5 +1,11 @@
 import Foundation
 
+// MARK: - Constants
+
+enum Constants {
+    static let cbrHost = "www.cbr.ru"
+}
+
 // MARK: - Data getting
 
 func getData(urlRequest: String) {
@@ -20,7 +26,13 @@ func getData(urlRequest: String) {
             print("Response code: \(response.statusCode)")
             if response.statusCode == 200 {
                 guard let data = data else { return }
-                let dataAsString = String(data: data, encoding: .windowsCP1251)
+                let encoding: String.Encoding
+                if url.host == Constants.cbrHost{
+                    encoding = .windowsCP1251
+                } else {
+                    encoding = .utf8
+                }
+                let dataAsString = String(data: data, encoding: encoding)
                 guard let dataAsString = dataAsString else { return }
                 print(dataAsString)
             } else if response.statusCode == 404 {
@@ -32,10 +44,12 @@ func getData(urlRequest: String) {
 
 // MARK: - Use case
 
+// MARK: - Get currency data
+
 let currentDate = Date.getCurrentDate()
-let urlRequest = "http://www.cbr.ru/scripts/XML_daily.asp?date_req=\(currentDate)"
-let urlRequest404 = "http://www.cbr.ru/sc/XML_daily.asp?date_req=\(currentDate)"
+let urlRequest = "http://\(Constants.cbrHost)/scripts/XML_daily.asp?date_req=\(currentDate)"
+let urlRequest404 = "http://\(Constants.cbrHost)/sc/XML_daily.asp?date_req=\(currentDate)"
 let urlRequestHostNotFound = "http://www.cb.ru/scripts/XML_daily.asp?date_req=\(currentDate)"
-let urlRequestBadParameter = "http://www.cbr.ru/scripts/XML_daily.asp?date_req=01/01/1970"
+let urlRequestBadParameter = "http://\(Constants.cbrHost)/scripts/XML_daily.asp?date_req=01/01/1970"
 
 getData(urlRequest: urlRequest)
