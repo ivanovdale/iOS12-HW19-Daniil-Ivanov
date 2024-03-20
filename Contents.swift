@@ -27,3 +27,11 @@ func getData(urlRequest: String) {
         }
     }.resume()
 }
+
+let currentDate = Date.getCurrentDate()
+let urlRequest = "http://www.cbr.ru/scripts/XML_daily.asp?date_req=\(currentDate)"
+let urlRequest404 = "http://www.cbr.ru/sc/XML_daily.asp?date_req=\(currentDate)"
+let urlRequestHostNotFound = "http://www.cb.ru/scripts/XML_daily.asp?date_req=\(currentDate)"
+let urlRequestBadParameter = "http://www.cbr.ru/scripts/XML_daily.asp?date_req=01/01/1970"
+
+getData(urlRequest: urlRequest)
