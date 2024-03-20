@@ -18,7 +18,7 @@ public final class CBRApi {
         case hostNotFound
         case currencyExchangeListWithBadParameter
 
-        public var urlRequest: String {
+        var urlRequest: String {
             switch self {
             case .currencyExchangeList(let dateString):
                 let queryParameters = "?date_req=\(dateString)"
