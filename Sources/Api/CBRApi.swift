@@ -20,31 +20,23 @@ public final class CBRApi {
         case currencyExchangeListWithBadParameter
 
         var urlRequest: String {
+            var components = URLComponents()
+            components.scheme = Constants.scheme
+            components.host = Constants.host
+
             switch self {
             case .currencyExchangeList(let dateString):
-                var components = URLComponents()
-                components.scheme = Constants.scheme
-                components.host = Constants.host
                 components.path = "/scripts/XML_daily.asp"
                 components.queryItems = buildQueryItems(dateString: dateString)
-                let queryParameters = "?date_req=\(dateString)"
                 return components.url?.absoluteString ?? ""
             case .fakeResource:
-                var components = URLComponents()
-                components.scheme = Constants.scheme
-                components.host = Constants.host
                 components.path = "/sc/XML_daily.asp"
                 return components.url?.absoluteString ?? ""
             case .hostNotFound:
-                var components = URLComponents()
-                components.scheme = Constants.scheme
                 components.host = Constants.fakeHost
                 components.path = "/scripts/XML_daily.asp"
                 return components.url?.absoluteString ?? ""
             case .currencyExchangeListWithBadParameter:
-                var components = URLComponents()
-                components.scheme = Constants.scheme
-                components.host = Constants.host
                 components.path = "/scripts/XML_daily.asp"
                 components.queryItems = buildQueryItems(dateString: "01/01/1970")
                 return components.url?.absoluteString ?? ""
